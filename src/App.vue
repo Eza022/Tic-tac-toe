@@ -1,28 +1,44 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <template>
+  <div id="board">
+    <div class="square" v-for="n in 9" v-bind:key="n" @click="clickedSquare(this)"> 
+      {{ square [n] }}
+    </div>
   </div>
-</template>
+  <div id="app">
+   
+  </div>
+</template> 
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import {ref} from "vue";
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+ setup(){
+  let currentTurn = "X";
+  let square =ref([]);
+  for (let i=0; i<=9; i++) square.value.push(null);
+
+  function clickedSquare(){
+    currentTurn === "X" ? (currentTurn = "O") : (currentTurn = "X");
+    console.log(currentTurn);
   }
-}
-</script>
+  return {square, clickedSquare };
+ },
+}; 
+</script> 
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+#board {
+  height: 400px;
+  width: 400px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.square{
+  width: 30%;
+  background-color: gray;
+  border: 1px solid black;
 }
 </style>
